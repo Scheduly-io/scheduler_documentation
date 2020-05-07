@@ -1,239 +1,133 @@
 ---
-title: API Reference
+title: Scheduly API Docs
 
 language_tabs: # must be one of https://git.io/vQNgJ
+  - http
   - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+  - <a href='#'>Login / Signup into Scheduly</a>
 
 includes:
-  - errors
 
 search: true
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Scheduly API docs!
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+You can use this API to schedule any task into the future. An example use case would be sending an email to a user one hour after he registers in your application.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+If you find something missing or you would change something, please contact us!
 
 # Authentication
 
-> To authorize, use this code:
+> To authorize, setup the following header in your requests:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
+```http
+POST /endpoint_you_want_to_call HTTP/1.1
+X-API-KEY: your_api_key
 ```
 
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "X-API-KEY: your_api_key"
 ```
 
-```javascript
-const kittn = require('kittn');
+> Make sure to replace `your_api_key` with your API key.
 
-let api = kittn.authorize('meowmeowmeow');
-```
+Scheduly uses API keys to allow access to the API. 
 
-> Make sure to replace `meowmeowmeow` with your API key.
+You can register and get a new API key inside the [application](http://example.com/developers). If you forget your API key, you can create a new one also inside of the [application](http://example.com/developers).
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+<aside class="warning">
+Make sure you save the API key in a safe place with backups, if possible. Treat it with the same importance you treat your passwords. We don't store it in our servers so that if someone steales our data, they still cannot make requests with your api key. Security first!
+</aside>
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+Scheduly expects for the API key to be included in all API requests to the server in a header that looks like the following:
+
+`X-API-KEY: your_api_key`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>your_api_key</code> with your personal API key.
 </aside>
 
-# Kittens
+# Json:API
 
-## Get All Kittens
+Scheduly tries to adhere as much as it makes sense to the [Json:API](https://jsonapi.org/) standard. We do this because we care about you! You might find [some library](https://jsonapi.org/implementations/) in your language of choice that allows you to call our endpoints and handle the responses in a easier way.
 
-```ruby
-require 'kittn'
+# Schedules
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+## Create New Schedule
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+> The following request creates a new schedule
+```http
+TODO
 ```
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+  TODO
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> The request body should follow the following format:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+{
+  "data": {
+    "type": "schedule",
+    "attributes": {
+      "trigger_at": 1587890095123,
+      "payload": {
+        "awesome_key": "awesome_value"
+      }
+    }
   }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+}
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "data": {
+    "type": "schedule",
+    "id": "56ba32c9-a4d5-431b-888f-4e5189cc996d",
+    "attributes": {
+      "trigger_at": 1587890095123,
+      "payload": {
+        "awesome_key": "awesome_value"
+      }
+    }
+  }
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`POST https://scheduly.com/api/schedule`
 
-### URL Parameters
+### Request Attributes
 
-Parameter | Description
+Attribute | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+trigger_at | Timestamp in milliseconds from UNIX epoch format. The schedule will be sent back to you at this exact time.
+payload | Optional Json object that will be sent back to you when the schedule triggers.
 
-## Delete a Specific Kitten
+### Response Attributes
 
-```ruby
-require 'kittn'
+The response will include the same attributes from the request, with the extra added `id` field which corresponds to the unique identifier assigned to the particular schedule instance.
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
+This `id` field is gonna be part of the request Scheduly will make onto your webhook. If you need to apply some piece of logic when receiving the schedules, this identifier can come handy.
 
-```python
-import kittn
+### Response Status Codes
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
+Status Code | Description
 --------- | -----------
-ID | The ID of the kitten to delete
+200 Ok | Happy path. Schedule has been received correctly. Sit back and enjoy.
+400 Bad Request | Woops! Something is wrong in the request. Either no body has been given, the body is not valid json or some required field is missing.
+401 Unauthorized | This means either the X-API-KEY header is not set, it is set with wrong format or the API key is expired or no longer valid. Please check the [authentication](/#authentication) part.
 
+<!-- TODO add the webhook callback part -->
