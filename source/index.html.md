@@ -35,10 +35,9 @@ You can register and get a new API key inside the [application](http://example.c
 Make sure you save the API key in a safe place with backups, if possible. Treat it with the same importance you treat your passwords. We don't store it in our servers so that if someone steales our data, they still cannot make requests with your api key. Security first!
 </aside>
 
-
 Scheduly expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`X-API-KEY: your_api_key`
+`Authorization: your_api_key`
 
 <aside class="notice">
 You must replace <code>your_api_key</code> with your personal API key.
@@ -56,7 +55,7 @@ Scheduly tries to adhere as much as it makes sense to the [Json:API](https://jso
 
 ```http
 POST /schedule HTTP/1.1
-X-API-KEY: your_api_key
+Authorization: your_api_key
 Content-Type: application/json; charset=utf-8
 Host: scheduly.io
 Connection: close
@@ -68,7 +67,7 @@ Content-Length: 112
 
 ```shell
 curl -X "POST" "https://scheduly.io/schedule" \
-     -H 'X-API-KEY: your_api_key' \
+     -H 'Authorization: your_api_key' \
      -H 'Content-Type: application/json; charset=utf-8' \
      -d $'{
   "data": {
@@ -99,7 +98,7 @@ def send_request():
         response = requests.post(
             url="https://scheduly.io/schedule",
             headers={
-                "X-API-KEY": "your_api_key",
+                "Authorization": "your_api_key",
                 "Content-Type": "application/json; charset=utf-8",
             },
             data=json.dumps({
@@ -145,7 +144,7 @@ func sendRequest() {
 	req, err := http.NewRequest("POST", "https://scheduly.io/schedule", body)
 
 	// Headers
-	req.Header.Add("X-API-KEY", "your_api_key")
+	req.Header.Add("Authorization", "your_api_key")
 	req.Header.Add("Content-Type", "application/json; charset=utf-8")
 
 	// Fetch Request
@@ -221,7 +220,7 @@ Status Code | Description
 --------- | -----------
 200 Ok | Happy path. Schedule has been received correctly. Sit back and enjoy.
 400 Bad Request | Woops! Something is wrong in the request. Either no body has been given, the body is not valid json or some required field is missing.
-401 Unauthorized | This means either the X-API-KEY header is not set, it is set with a wrong format, the API key is expired or no longer valid. Please check the [authentication](/#authentication) part.
+401 Unauthorized | This means either the Authorization header is not set, it is set with a wrong format, the API key is expired or no longer valid. Please check the [authentication](/#authentication) part.
 
 
 ## Receiving Triggered Schedules (Webhook Request)
